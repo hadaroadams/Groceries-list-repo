@@ -5,10 +5,12 @@ let lisItems = document.querySelector('.list_container')
 let grocery = ''
 let editting = false
 let target 
-console.log(buttons,alertP,textInput,lisItems)
 
+
+// window.addEventListener('DOMContentLoaded')
 textInput.addEventListener('change',(e)=>{
     grocery = e.target.value
+    cap=
     console.log(grocery)
 })
 
@@ -26,6 +28,7 @@ buttons.forEach((item)=>{
         }
         if(item.id=='clearAll'){
            clearAll(clearBtn)
+
         }
     }
 })
@@ -102,13 +105,26 @@ function clearAll(clr){
         alertP.style.backgroundColor="transparent"
         alertP.innerText=""
     },1000)
+    editting=false
+    document.querySelector("#submit").innerText="Submit"
 }
 function clrItem(item){
     let list = item.parentElement.parentElement
     list.remove()
     localStorage.removeItem(list.id)
     textInput.value=''
-
+    document.querySelector("#submit").innerText="Submit"
+    if(localStorage.length==0){
+        document.getElementById("clearAll").classList.add('clear')
+        alertP.style.backgroundColor="rgb(236, 157, 157)"
+        alertP.innerText="Empty List"
+        textInput.value=''
+        setTimeout(()=>{
+        alertP.style.backgroundColor="transparent"
+        alertP.innerText=""
+    },1000)
+    }
+    editting=false
 }
 
 function editItem(item){
@@ -143,3 +159,47 @@ function change(){
         },1000)
     }
 }
+
+function initialDisplay(){
+    if(localStorage.length !==0 ){
+
+        let objList = Object.entries(localStorage)
+        objList.forEach((item)=>{
+            const contentDiv = document.createElement('div')
+                let attr = document.createAttribute('class')
+                attr.value="listItems"
+                let idAttr = document.createAttribute("id")
+                idAttr.value =`${item[0]}`
+                contentDiv.setAttributeNode(attr)
+                contentDiv.setAttributeNode(idAttr)
+                console.log(contentDiv)
+                let content = 
+                    `
+                        <p>${item[1]}</p>
+                        <div class="icons">
+                            <button id="edit">
+                                <i class="fa-solid fa-pen-to-square pen"></i>
+                            </button>
+                            <button id="clear">
+                                <i class="fa-solid fa-trash trash"></i>
+                            </button>
+                        </div>
+                    `
+        contentDiv.innerHTML=content
+        lisItems.appendChild(contentDiv)
+        let btns = document.querySelectorAll(".list_Container button")
+        btns.forEach((item)=>{
+            item.onclick=()=>{
+                if(item.id =="clear"){
+                    clrItem(item)
+                }
+                if(item.id=="edit"){
+                    target = item
+                    editItem(item)
+                }
+            }
+        })
+        })
+    }
+}
+initialDisplay()
