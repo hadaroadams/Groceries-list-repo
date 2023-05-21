@@ -4,7 +4,7 @@ let textInput = document.querySelector('input')
 let lisItems = document.querySelector('.list_container')
 let grocery = ''
 let editting = false
-
+let target 
 console.log(buttons,alertP,textInput,lisItems)
 
 textInput.addEventListener('change',(e)=>{
@@ -19,9 +19,8 @@ buttons.forEach((item)=>{
         e.preventDefault()
         if(item.id=="submit"){
             if(editting==true){
-
-            }
-            else{
+                change()
+            }else{
                 submit(clearBtn)
             }
         }
@@ -64,6 +63,7 @@ function displays(){
                 clrItem(item)
             }
             if(item.id=="edit"){
+                target = item
                 editItem(item)
             }
         }
@@ -116,5 +116,30 @@ function editItem(item){
     let editText = localStorage.getItem(list.id)
     console.log(editText)  
     textInput.value=editText
+    document.querySelector("#submit").innerText="Edit"
     editting = true
+}
+
+function change(){
+    if(grocery==""){
+        alertP.style.backgroundColor="rgb(236, 157, 157)"
+        alertP.innerText="Please Add Item"
+        setTimeout(()=>{
+            alertP.style.backgroundColor="transparent"
+            alertP.innerText=""
+        },1000)
+    }else{
+        let list = target.parentElement.parentElement
+        list.firstElementChild.innerText = grocery
+        localStorage.setItem(list.id,grocery)
+        textInput.value=""
+        editting=false
+        document.querySelector("#submit").innerText="Submit"
+        alertP.style.backgroundColor="rgb(102, 241, 121)"
+        alertP.innerText="Item Updated"
+        setTimeout(()=>{
+            alertP.style.backgroundColor="transparent"
+            alertP.innerText=""
+        },1000)
+    }
 }
