@@ -4,6 +4,10 @@
   font-family: sans-serif;
 }
 
+.clear {
+  display: none;
+}
+
 body {
   display: flex;
   justify-content: center;
@@ -34,6 +38,9 @@ body section form .alert {
   margin-bottom: 5px;
   border-radius: 10px;
   text-align: center;
+  letter-spacing: 4;
+  font-size: small;
+  padding-top: 4px;
 }
 body section form h3 {
   letter-spacing: 5;
@@ -68,7 +75,7 @@ body section form .inputs button {
 }
 body section form .inputs button:hover {
   background-color: rgb(31, 93, 180);
-  color: white;
+  color: rgb(255, 255, 255);
 }
 body section form .listItems {
   display: flex;
@@ -80,12 +87,16 @@ body section form .listItems {
   color: rgb(31, 29, 29);
   letter-spacing: 2;
 }
+body section form .listItems p {
+  width: 70%;
+  text-align: start;
+}
 body section form .listItems:hover {
   background-color: rgb(225, 237, 241);
   color: gray;
 }
 body section form .listItems .icons {
-  flex: 0.09;
+  width: 10%;
   display: flex;
   justify-content: space-between;
 }
