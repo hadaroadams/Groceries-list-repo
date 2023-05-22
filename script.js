@@ -7,11 +7,9 @@ let editting = false
 let target 
 
 
-// window.addEventListener('DOMContentLoaded')
+window.addEventListener('DOMContentLoaded',initialDisplay)
 textInput.addEventListener('change',(e)=>{
     grocery = e.target.value
-    cap=
-    console.log(grocery)
 })
 
 buttons.forEach((item)=>{
@@ -44,6 +42,11 @@ function displays(){
     contentDiv.setAttributeNode(attr)
     contentDiv.setAttributeNode(idAttr)
     console.log(contentDiv)
+    let firstcap = grocery.charAt(0).toUpperCase()
+    let rest = grocery.slice(1)
+
+    grocery = firstcap + rest
+    console.log(grocery)
     let content = 
                 `
                     <p>${grocery}</p>
@@ -132,7 +135,7 @@ function editItem(item){
     let editText = localStorage.getItem(list.id)
     console.log(editText)  
     textInput.value=editText
-    document.querySelector("#submit").innerText="Edit"
+    document.querySelector("#submit").innerText="Edit";
     editting = true
 }
 
@@ -145,6 +148,9 @@ function change(){
             alertP.innerText=""
         },1000)
     }else{
+        let firstcap = grocery.charAt(0).toUpperCase()
+        let rest = grocery.slice(1)
+        grocery = firstcap + rest
         let list = target.parentElement.parentElement
         list.firstElementChild.innerText = grocery
         localStorage.setItem(list.id,grocery)
@@ -200,6 +206,9 @@ function initialDisplay(){
             }
         })
         })
+    }else{
+        let clearBtn=document.getElementById('clearAll');
+        clearBtn.classList.add("clear")
     }
+
 }
-initialDisplay()
